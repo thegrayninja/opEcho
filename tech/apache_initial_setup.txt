@@ -1,0 +1,14 @@
+modify /etc/apache2/apache2.conf
+
+Header always append X-Frame-Options SAMEORIGIN
+(alternative: Header always append X-Frame-Options ALLOW-FROM http://mysite.com)
+TraceEnable Off
+ServerSignature Off
+ServerTokens ProductOnly
+expose_php Off
+
+
+
+
+
+source: https://www.simonholywell.com/post/2013/04/three-things-i-set-on-new-servers/

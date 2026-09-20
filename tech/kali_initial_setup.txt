@@ -1,0 +1,47 @@
+install Kali (via bootable usb/disk/vm)
+
+#basic initial setup
+apt-get update
+apt-get upgrade
+apt-get dist-upgrade
+useradd -m user1
+passwd user1
+usermod -a -G sudo user1
+chsh -s /bin/bash user1
+
+
+#to install flash player, if needed
+apt-get install flashplugin-nonfree
+update-flashplugin-non-free --install
+
+#to install virtual box in kali
+apt-get install linux-headers-$(uname -r)
+wget download.virtualbox.org/virtualbox/4.2.14/virtualbox_4.2_4.2.14-86644~Debian~wheezy_i386.deb
+dpkg -i virtual*
+
+#to install chkconfig
+apt-get install chkconfig
+chkconfig ssh
+chkconfig -ls (?)
+
+#to install nvidia driver
+
+#to modify local ssh splash page
+^visit patorjk.com/software/tags and copy desired text
+edit /etc/motd
+^paste desired text in motd
+
+
+#general stop/start/resets of services
+serivce ssh stop
+service ssh restart
+service ssh start
+/sbin/ssh stop
+
+
+#to enable service to auto start
+update-rc.d ssh enable
+
+
+#to install apache
+apt-get install apache

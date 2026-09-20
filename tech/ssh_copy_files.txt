@@ -1,0 +1,7 @@
+copy from local to remote:
+scp /path/to/file username@system:/path/to/destination
+
+
+copy fro remote to local:
+scp username@system:/path/to/file /path/to/destination
+

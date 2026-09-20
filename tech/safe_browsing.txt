@@ -1,0 +1,191 @@
+Safe Browsing
+
+
+
+preface: This paper is intended for somebody who knows little or enough about computers to get themselves in trouble, but not enough to fix the issue. That, and for those who download videos of a season premier before it is even released on T.V. (it'll actually be a virus!).
+
+v.1.0 - author:grayninja - date:2016-09-08
+
+
+
+
+
+
+ch_1-introduction 
+
+
+
+  The Internet is a fantastic resource that has evolved into a necessity in modern society. You have the ability to deposit checks, stream movies, refinance your home loan...the list goes on. Social media has overtaken the news feeds (don't get me started on the so-called journalism these days!) and our lives. It is very easy to get sucked into the downward spiral of Internet addiction. When you are looking at Facebook and funny videos all day, you may forget how large it has become, and how dangerous it can be to your personal and financial life. However! The Internet is still a fantastic and wonderful tool, but the secret to staying alive is to think smart.
+
+  The Internet has a dark side, just as everything else in life. Remember this, the Internet is not your Cable T.V.; it consists of two-way communication. You receive information, of course, but you also give information. And this may come to a surprise - you give a lot of information without knowing (and without your permission!). Ever notice the ads that show items you were just viewing? Almost all sites share your browsing history/information with other companies. They do this without your knowledge. This is akin to having somebody watch your every move. Nobody wants this, but it's inevitable. We assume the ISP's, such as Comcast, as well as government agencies, have access to everything we do over the wire at all times. 
+
+  I hope you now realize that you are being watched as if you are on the FBI's most wanted list. Doesn't that feel fantastic? You are welcome for making you feel paranoid. But don't worry, you shouldn't stop paying bills, chit-chatting, or anything else you enjoy doing on the Internet. Why you say? Cause that's stupid. Unless you cancel all bank accounts, social media, e-mail accounts, etc. and live on an island, your electronic fingerprint will remain connected to the web in one form or another. What we need to do instead is think smart and be safe. I know you can do it, and I'm here to shed some light on that matter.  
+
+
+
+
+
+
+
+
+
+
+
+ch_2-viruses
+
+
+
+  The dreaded word intended to spread fear into those who turns on a computer: Virus. Nobody likes a virus as they are hard to get rid of and ruin your computer (more specifically, your Operating System). Viruses are like political topics; they tend to incorporate many things, so I'll do that here: malware, trojans, spyware, adware and viruses - let's just lump them together and refer to them as a virus. They are all software that you do not want on your computer. The terms are different due to how they are created and used by people, but the principal is the same. Viruses are pieces of software that people have created mainly to learn about you and steal your data. Does this sound familiar? This is what legitimate companies do to provide you targeted ads. They are stealing your information without telling you. The difference is that viruses tend to be used for malicious purposes (making money is not malicious...)
+
+  Main purposes of viruses: Steal Personally Identifiable Information (PII), perform a Distributed Denial of Service (DDoS) attack on a company, or trick you into paying them money. PII is information related to you, such as your name, date of birth, credit card information, bank accounts, passwords, etc. DDoS Attacks are used to shut down a portion or all of a company on the web, eg: a DDoS Attack on facebook would prevent users from accessing that website. Viruses are nothing magical (ok, they can be very smart and creative, but stay with me here), they are simply applications or software much like iTunes. Some even pretend to be an anti-virus software program that states that your computer is infected. Lucky for you, if you pay them $30, you can buy the program that will remove the viruses. BTW - NEVER EVER fall for this! This is an obvious ploy to steal your money. Who knows, they will likely steal or sell your credit card information for a few bucks on the black market. 
+
+  Fun Fact: According to Bankrate.com as of July 27th, 2015, the following is a list of cost per item on the black market:
+	
+	Credit Card data - $12
+	Date of Birth - $11
+	Social Security Number - $30 
+
+
+
+
+source: 
+bankrate: http://www.bankrate.com/finance/credit/what-your-identity-is-worth-on-black-market.aspx
+
+
+
+
+
+
+
+
+
+
+
+ch_3-social_engineering
+
+
+
+  The Internet is life, and just with life, there are rules:
+	1. Respect
+	2. Pay Attention
+	3. Don't share your passwords
+	4. If it is too good to be true, it probably is.
+
+ If you are sick, does the doctor call you out of the blue, or do you have to call, make an appointment, and travel to the hospital? Unless your Dr. is psychic, you must go to him or her first. Same goes with computers. If somebody calls you from Microsoft, they are lying. If you get an e-mail from the IRS, this too is fake (although they may call you). You might be afraid and follow their instructions, but you must think first. Why? The instant you click a bad link via your e-mail or a web page (ie: click here), the bad guys are on your system. 
+
+  In that same token, it is important to know what you have installed on your computer. If you have a pop-up displaying viruses and you need to pay to fix it, do you know if it is legit? Or is that program new and actually the virus? Any seasoned computer veteran knows that any program asking for money that you did not download is a scam/virus. In fact, that will be a new rule: if it is asking for money, it is a scam and you are likely infected. 
+
+  You need to be smart and pay attention to e-mails as well. Phishing (not fishing) is a technique used to trick you. Most phishing attacks are obvious, but there are a few good ones that come through. Phishing is when a person sends a message to you (Facebook, e-mail, etc.) under the disguise as someone else, say, GMail. In the e-mail, the body will likely mention that your account settings need to be updated and to click this link to resolve the issue. In reality, that would lead you to a fake page that looks like a Google login page. You then enter your credentials, but you don't log in. Instead, they have stolen your password. And guess what? Most of your on-line accounts point back to your e-mail: banks, utilities, stores, social media, etc. A reset password on those sites, and now not only is GMail compromised, so is your bank account. Oh oh, goodbye money! 
+
+
+
+
+
+
+
+
+
+
+
+ch_4-url_inspection
+
+
+
+  This has turned dark very quickly, but have no fear! Two simple solutions will resolve this issue:
+	1. Do not click links in your e-mail
+	2. If you must click the link, inspect it first.
+
+note: there are many terms with links, and they are as follows: link, hyper-link, URL, Web Address, Web URL. URL stands for Uniform Resource Locator, or simply link :) I like to think of a link as the blue text that you click. The URL is the actual path that the link will take you. More on this soon.
+
+If you hover over the link, it will display the true link address (aka URL). Below is a short example of what good URLs look like compared to bad URLs:
+
+	a) accounts.google.com is good
+	b) accounts.gogle.com is bad
+	c) accounts.google.com.bull.net is bad
+	d) google.com/help is good
+	e) google.com.help is bad
+
+Review the 5 URLs listed above. Try to identify why they are or are not bad URLs. note: bad = malicous.
+
+	a) it is a good URL because google.com is formatted correctly. https://google.com and blah.google.com are also correct. a dot ('.') before google is ok, as anything before.google.com (such as "accounts" or "blah") belongs to google.com. The .com is the end, similar to Street, Avenue or Drive. Eg: 2600 F Street. 2600 = accounts, F = google, and Street = com. The spaces get converted to dots ('.'). 
+
+  Does the address 2600 F Street Ave make sense? No! Something is wrong and I would not even attempt to travel to 2600 F Street Ave. Same goes for accounts.google.com.help. A dot ('.') is not allowed after com. If it exists, then something is wrong. Do not click. Same rules applies for net, org, biz, and so on. 
+
+  Websites allow text after .com, but .com must be followed with a "/", such as google.com/help. This is called a slash, not a back-slash, simply 'slash.' A back-slash goes the other way, '\', because it is leaning back. Some people use the term 'whack' for a back-slash and a slash, which is dumb, so let's avoid that ambiguity term altogether. And it is definitely not called a dash...
+
+	b) not legit - look at the misspelling 
+	c) not legit - there is a dot ('.') after com
+	d) legit - google.com looks good, and the .com is followed by a slash
+	e) not legit - there is a dot ('.') after com
+
+  This may seem silly that I stressed so much on this subject. However, the Internet runs on URL's (ok, URL's and IP Addresses, but that's for another day). In order to stay away from trouble, it's a good idea to understand what trouble looks like. A van with "Free Candy" written on the side looks like a good idea, until you are made aware of the risk. Being able to quickly identify malicious links and URLs will make your life easier. 
+
+  I also try to avoid clicking tiny.url links. These links can be legit or malicious, but who knows. The URL looks correct, but where is it pointing to? tiny.url links redirect you to another page. You can, however, uncover the tiny.url's URL. You have to copy the URL, for instance, tinyurl.com/2tx and add preview to the beginning as such: preview.tinyurl.com/2tx. If you do this, then you are browsing smart!
+
+  Simply because a link says "google.com" doesn't mean that is where it will take you. The blue-text is simply a pretty face, and the true URL lives behind it. This is why you must hover! When you hover your cursor above a link, the URL will appear either next to your cursor, or at the bottom of the web page/e-mail window. You can then click the link once you have determined that it is safe. You can also right-click the link, select "copy URL", then paste it into your browser. After inspection, you can hit enter (or press go) and be on your merry way. 
+
+  You can avoid this ordeal in e-mail by enforcing all mail to be in text format. I highly recommend you do this, as it will show you any other secrets that may live inside of those e-mails. 
+
+  One last but very very very important thing to learn about URLs: the s in https:// is important. The s means your connection is secure and will encrypt any traffic sent between you and the web site. When you are logging into a website, verify that the url contains the s in https://. This will make it incredibly difficult for a bad guy to steal your password. If you are logging into a website using your username and password, and the s is missing, you should e-mail their support and tell them how ignorant or lazy they are. Also, it is OK to browse a website that is missing the s, just don't log into that website. Deal? Deal.
+
+
+
+
+
+
+
+
+
+
+
+ch_5-system_tips  
+
+
+
+  We covered bad links, potential for Phishing and some basic virus techniques. It is important for you to have anti-virus on your machine, but also to remember that it isn't some magic invincibility pill. If you browse stupidly, even with a good anti-virus program installed, you will still become infected. If possible, I would look to see if McAfee, Symmantec or ESET offers a free anti-virus program. Do not buy some off the wall program (I'm looking at you Panda and Vipre). Don't get fooled by the web protection they offer. I personally think those are garbage (they were in the past, anyway) and will ruin your browsing experience. If you are smart, you don't need it. Lastly, with whichever anti-virus you choose, it is important to keep it up to date.
+
+  It is also recommended that you do not use the built-in admin account on your computer. I believe windows is good about making you use a non-admin account when you first set up your computer. Regardless, be sure you are using a non-admin account for your every day use. This minimizes the risk of a virus installing on your computer. Programs typically need admin rights to install, which makes it difficult to do if you are logged in as a standard user. 
+
+  Turn on System Restore if you are running Windows (or the Mac equivalent). Some viruses may infect the System Restore files. However, more often than not, you can remove the viruses completely simply by restoring to a previous restore point. 
+
+  Passwords! Please follow these rules:
+
+	1. Do not use the same password for multiple accounts
+	2. A string of words is better than random letters. IE: W3reallywanttowin$ (easy to remember regardless of length, and is hard to crack) is better than W3re#@PbJ2!][ (hard to remember, especially when it becomes really long)
+	3. Use a password manager, such as Keepass, LastPass, etc. or a password protected file, such as an Excel doc. 
+	4. Don't share your passwords with anyone!
+
+
+
+
+
+
+
+
+
+
+
+ch_6-safe_browsing
+
+
+
+  When searching google or yahoo, skip the first few entries. These are ads - Avoid Ads like the plague!
+
+  Before clicking a link, make sure the URL looks safe. You aren't expected to know all, but use common sense. When searching for "George Washington," a link pointing to washington.dollabillz.net isn't what I want. Instead, whitehouse.gov looks more appropriate. Even though a site appears on the search results, it could still be malicious and infect your machine. 
+
+  If you get to a site that looks shady - leave. No need to stay. You shouldn't have contracted a virus, but just be on the look out for odd behavior (weird pop-ups, etc.). Some web pages can look like software viruses and fool you. In this case, reboot your computer. If the pop-ups stay away, you are in the clear. If the pop-ups are back, you are infected. 
+
+  Incognito mode is a setting in your web browser that allows you to browse the web in private, which in reality doesn't mean much. Incognito, or Private mode, basically deletes any stored cache for you automatically. I believe it does help protect against web-based malware, but I can guarantee you that it isn't full-on protection. Private mode is really good if you want to be logged in to a website under 2 different accounts. This usually isn't an issue for normal users. What you should do instead of private mode is to change your default browser settings. Here are a few tips that you can modify as you see fit:
+
+	1. Disable saving history
+	2. Disable Cookies
+	3. Enable prompting when downloading files
+
+  The last tip is good to help prevent accidental downloads. If it is set to download to a folder, it won't ask you to verify downloading what could potentially be a virus. :/ Of course, you don't have to follow the above steps, it'll just make your browsing a cleaner experience.
+
+  What I personally do is run Firefox (or Iceweasel) and take advantage of their plug-ins/add-ons. I was a huge proponent of the Chrome browser until my co-worker introduced me to some killer add-ons for Firefox. Some cool ones: FroxyProxy, HTTPRequester, Self-Destructing Cookies, Ghostery, and NoScript. I love NoScript, but it isn't for the novice. It prevents any scripts automatically loading on the website. Great news for you and bad news for the bad guys. However, and this is a big however, most sites use scripts for good things, such as paying bills or watching movies. By default, NoScript will prevent those good features from working. Of course, you can still allow those scripts to run, you just need to manually make the change. Ghostery basically blocks the advertisement companies from spying on you, and Self-Destructing Cookies prevents cookies in the first place. FoxyProxy allows you to browse semi anonymously (IE: driving with dealer plates), and HTTPRequester is useful for seeing and manipulating web traffic. 
+
+  We can keep going deeper and deeper into web safety and privacy...but really that is too much for this paper. I hope you have a better understanding of the Internet and what exists out there on the wire. This was a quick overview, and as you may suspect, you can find much more information about each subject on the Internet (Just make sure the sites are safe!). But do not be afraid. The bad guys are simply people, not some magical instance. As long as you are smart, you'll be OK. 
+
+  Once last thing, I promise: please buy a USB hard drive and back up your files. You will thank me one day.
+

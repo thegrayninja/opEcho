@@ -1,0 +1,35 @@
+Apache2: 
+Header always append X-Frame-Options SAMEORIGIN
+
+specifically:
+cd /etc/apache2/
+nano conf-enabled/security.conf
+at the top of the page, enter:
+LoadModule headers_module /usr/lib/apache2/modules/mod_headers.so
+
+then, uncomment the two "Header set..." values at the bottom of the page
+Save the doc, then restart apache: /etc/init.d/apache2 restart
+
+
+
+nginx:
+add_header X-Frame-Options SAMEORIGIN;
+
+wildfly:
+(in resposne headers)
+X-Frame-Options: SAMEORIGIN
+
+
+For example..Nikto may say a site is vulnerable. However, if the test fails, then you are ok... for now.
+
+to test, save the following code in an htm/html file (and update the site of course!):
+
+<html>
+   <head>
+     <title>Clickjack test page</title>
+   </head>
+   <body>
+     <p>Website is vulnerable to clickjacking!</p>
+     <iframe src="http://www.target.site" width="500" height="500"></iframe>
+   </body>
+</html>

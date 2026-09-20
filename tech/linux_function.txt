@@ -1,0 +1,9 @@
+To save these entries permanently, modify ~/.bashrc add add the lines below to the bottom of the file
+
+
+# to create a directory, then automatically cd to it
+function md () { mkdir -p "$@" && cd "$@"; }
+
+
+# if you forgot to run sudo in the first place
+alias gah='sudo $(history -p \!\!)'

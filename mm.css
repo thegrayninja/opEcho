@@ -1,0 +1,217 @@
+
+
+body {
+    background-color: #000000;
+    background-attachment: fixed;
+    background-image: url(images/logo.jpg);
+    background-repeat: no-repeat;
+    }
+
+
+a {
+    color:#32FA32;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 1.em;
+
+}
+a:link {
+    color: #32FA32;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    text-decoration: none;
+
+}
+a:visited {
+    color: #32FA32;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    text-decoration: none;
+
+}
+a:hover {
+    color: #cccc66;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    text-decoration: none;
+
+}
+
+pre {
+    white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+#nav a {
+    color:#999933;
+    font-family:  Verdana, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1em;
+}
+#nav a:link {
+    color: #999933;
+    font-family:  Verdana, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1em;
+}
+#nav a:visited {
+    color: #999933;
+    font-family:  Verdana, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1em;
+}
+#nav a:hover {
+    color: #cccc66;
+    font-family:  Verdana, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1em;
+}    
+
+#nav {
+    color:#cc6600;
+    font-family:  Verdana, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 0.8em;
+    left: 0px;
+    width: 220px;    
+    position: fixed;
+    top: 110px;
+    background-color: #000000;
+    filter:alpha(opacity=75);
+     -moz-opacity:0.75;
+      opacity: 0.75;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    border-top-style: dotted;
+    
+    border-right-style: dotted;
+    border-bottom-style: dotted;
+    border-top-color: #CC6600;
+    border-bottom-color: #CC6600;
+    border-right-color: #CC6600;
+    z-index: 1;
+    font-style: normal;
+}
+
+#forward {
+    left: 300px;
+    width: 70%;
+    position: absolute;
+    top: 8px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 0.8em;
+    color: #32FA32;
+    }
+
+#header {
+    top: 20px;
+    padding-left: 10px;
+    padding-right: 30px;
+    padding-top: 20px;
+    padding-bottom:20px;
+    font-family:  "Courier New", Courier, Consolas, Monospace, Monaco;
+    font-size: 2em;
+    font-weight: bold;
+    color: #32FA32;
+    }
+
+#header a {
+    color:#32FA32;
+    font-family:  "Courier New", Courier, Consolas, Monospace, Monaco;
+    font-weight: none;
+    font-size: 1em;
+
+}
+#header a:link {
+    color: #32FA32;
+    font-family:  "Courier New", Courier, Consolas, Monospace, Monaco;
+    text-decoration: none;
+    font-weight: none;
+    font-size: 1em;
+
+}
+#header a:visited {
+    color: #32FA32;
+    font-family:  "Courier New", Courier, Consolas, Monospace, Monaco;
+    text-decoration: none;
+    font-weight: none;
+    font-size: 1em;
+
+}
+#header a:hover {
+    color: #cccc66;
+    font-family:  "Courier New", Courier, Consolas, Monospace, Monaco;
+    text-decoration: none;
+    font-weight: none;
+    font-size: 1em;
+
+}
+
+#content {
+    left: 250px;
+    width: 70%;
+    position: absolute;
+    top: 108px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 0.8em;
+    color: #CC6600;
+    padding-top: 10px;
+    padding-right: 15px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    border-left-style: dotted;
+    border-top-style: dotted;
+    border-right-style: dotted;
+    border-bottom-style: dotted;
+    border-top-color: #CC6600;
+    border-right-color: #CC6600;
+    border-bottom-color: #CC6600;
+    border-left-color: #CC6600;
+    z-index: 1;
+    background-color: #000000;
+    }
+
+#sidebar {
+    left: 0px;
+    width: 220px;
+    position: absolute;
+    top: 108px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 0.8em;
+    color: #32FA32;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+    border-left-style: dotted;
+    border-top-style: dotted;
+    border-right-style: dotted;
+    border-bottom-style: dotted;
+    border-top-color: #CC6600;
+    border-right-color: #CC6600;
+    border-bottom-color: #CC6600;
+    border-left-color: #CC6600;
+    z-index: 1;
+    background-color: #000000;
+    }
+
+
+#code {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 15px;
+    padding-bottom:15px;
+    font-family:  "Courier New", Courier, Consolas, Monospace, Monaco;
+    font-size: .9em;
+    color: #32FA32;
+    }
+
+

@@ -1,0 +1,9 @@
+tasklist /v - verbose info
+tasklist /svc - also shows services running
+tasklist /fi - enables to filter by any info shown during /v option, ie, Status, Imagename, PID, etc.
+- can also be used with math operators, such as eq, ne, gt, lt, ge and le
+
+example: tasklist /fi "USERNAME ne NT AUTHORITY\SYSTEM" /fi "PID gt 2000"
+
+
+

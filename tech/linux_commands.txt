@@ -1,0 +1,37 @@
+top		#shows processes
+ls		#lists files/directories
+dir		#lists directories
+cd		#change directory
+rmdir	#removes directory
+rm		#removes file
+df [option] /path -h -a		#displays available disk space
+[cmd] | grep [text]		#filters text
+ps -Al | grep apache2		#shows currently running services
+service --status-all		#shows installed/noninstalled applications
+
+
+#to locate largest files within tree
+du -sh * | sort -hr | head -n10
+
+#to locate largest directories within tree
+du . -sh * | sort -hr | head -n10
+
+
+/sbin/reboot
+/sbin/shutdown -r now
+sudo reboot
+
+
+
+to filter through uniq values:
+echo -e "file" | sort | uniq
+
+grep "" "file" | sort | uniq
+
+
+chown owner file
+
+
+#to change password:
+passwd (to change the password for currently logged in user)
+sudo passwd user (to change the password for a new user)

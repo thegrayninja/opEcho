@@ -1,0 +1,14 @@
+#date
+#cd /usr/share/zoneinfo
+#tzselect
+<follow prompts>
+#mv /etc/timezone /etc/timezone-old
+#ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
+#date
+
+
+to set time server:
+aptitude install ntp
+ntpdate && hwclock -w
+
+

@@ -1,0 +1,22 @@
+nmap
+
+-sn		#ping scan only
+-Pn		#treat all assets as online
+-iL		#import list
+-p		#ports to scan
+-sV		#determine version number
+
+
+ideal ports to scan for:
+21,22,80,443,445,8443,9443
+
+
+#examples:
+
+nmap -v -A 10.0.0.0/24	>> /location/filename  # >> to print to file
+nmap -v -p 22,80,443 10.0.0.9
+
+
+
+
+nmap -Pn -p 443 --script=ssl-enum-ciphers 65.203.328.134  (retreives current ssl ciphers)

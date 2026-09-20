@@ -1,0 +1,31 @@
+# to increase a partition on a linux box using vmware
+
+download gparted iso: http://gparted.org/
+launch vmware
+select the vm instance you wish to grow
+right-click instance and click "settings"
+click Hard Disk (SCSI)
+click the Expand button (located on the right)
+type a larger drive size (in this case, increasing from 25 to 30)
+hopefully it will be successful. 
+click ok. 
+click CD/DVD (SATA)
+Select: Use ISO image file: (browse to gparted ISO location)
+click ok, ok. 
+then start the vm and boot to gparted (may need to change boot order...quickly spam F2)
+choose GParted Live
+follow prompts:
+	leave keymap
+	33 (for english)
+	0 to start x
+	
+
+	
+{
+  may have to run these commands first inside of linux:
+  run df -h to verify partition name
+  sudo resize2fs /dev/sda1 (to use up the entire available partition)
+  sudo resize2fs /dev/sda1 25G (to specify new partition size)
+  sudo resize2fs /dev/sda1 25400M (for 25.4B)
+}
+

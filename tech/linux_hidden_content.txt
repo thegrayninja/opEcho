@@ -1,0 +1,10 @@
+to reveal hidden/non-print text:
+
+cat -v filename
+
+
+If ^M Appears, perform the following:
+sed -i.bak 's/^M$//' filename		(for backup...exclude -i.bak if no backup is needed)
+to make the proper ^M, press CTRL+V, CTRL+M
+
+ex

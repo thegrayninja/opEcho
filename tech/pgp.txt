@@ -1,0 +1,39 @@
+		to install GNU Privacy Assistant
+sudo apt-get install gpa gnupg2
+
+----------------------------------------------------------
+
+		to launch GNU Privacy Assistant
+launch via gpa --disable-x509
+
+----------------------------------------------------------
+
+		to encrypt
+open the clipboard
+type or paste in text
+select the blue key to encrypt
+choose desired public key
+copy key and paste wherever
+
+-----------------------------------------------------------
+
+		to decrypt
+
+open the clipboard
+paste in pgp key
+select the yellow key
+type in your private key's password
+view message
+
+
+-----------------------------------------------------------
+
+		to setup a new key
+
+go through gui (not very many options available)
+or through cli:
+gpg --gen-key
+option 1
+4096
+0 (never expire, y to confirm)
+

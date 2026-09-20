@@ -1,0 +1,28 @@
+http://stackoverflow.com/questions/16616975/how-do-i-get-the-last-word-in-each-line-with-bash
+
+
+to retreive the last word in each line:
+
+$ awk 'NF>1{print $NF}' file
+example.
+line.
+file.
+
+
+
+
+
+
+
+
+
+To show only differences between two files: (visit site for more info)
+
+http://stackoverflow.com/questions/4717250/extracting-unique-values-between-2-sets-files
+
+
+
+$ awk 'FNR==NR {a[$0]++; next} !a[$0]' file1 file2
+
+
+

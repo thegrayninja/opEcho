@@ -1,2 +1,3 @@
-# opEcho_prod
-use for hosting my static website
+# opEcho
+
+my website - moving away from lightsail to github hosted

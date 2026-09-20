@@ -1,0 +1,26 @@
+examples followed results
+
+find the count of files within the current folder:
+dir /a-d /b /s | find /c /v ""
+50
+
+find the count of files and folders within the current folder:
+dir /a /b /s | find /c /v ""
+63
+
+find the count of all .mp3 files within the current folder:
+dir /a /b /s | find /c ".mp3"
+25
+
+find the count of all .mp3 files plus the file name within the current folder:
+dir /a /b /s | find /n ".mp3"
+[23]c:\tech\misc\podcast\2600\off_the_hook_2015.mp3
+
+
+
+
+
+
+dif tool
+
+robocopy “Source” “Target” /e /l /ns /njs /ndl /fp /log:PATH\FileName.txt

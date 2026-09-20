@@ -1,0 +1,90 @@
+powershell shiznitch
+
+
+#this is a comment
+<#
+this is also a comment
+#>
+<# this, too, is a comment #>
+
+
+
+#to download a file in ps/cli:
+$WebClient = New-Object System.Net.WebClient
+$WebClient.DownloadFile( "http://downloads.mixxx.org/mixxx-2.0.0/mixxx-2.0.0-win64.exe", "c:\users\grayninja\Downloads\mixxx-2.0.0-win64.exe")
+
+#then, to run the file:
+.\mixx-2.0.0-win64.exe
+
+#to download a file, multi-line...or ps file:
+$Url = "http://www.thomasmaurer.ch/ps.txt"	#source of code: http://www.thomasmaurer.ch/2010/10/how-to-download-files-with-powershell/
+$Path = "C:\temp\ps.txt"
+$Username = ""
+$Password = ""
+ 
+$WebClient = New-Object System.Net.WebClient
+$WebClient.Credentials = New-Object System.Net.Networkcredential($Username, $Password)
+$WebClient.DownloadFile( $url, $path )
+
+
+##a good source for ps commands: 
+
+
+
+#variables start with $:
+$a = get-childitem
+
+
+#get a count of txt files in a directory:
+$a = get-childitem c:\tech\* -Include *.txt
+$a.count
+$b = get-childitem c:\tech\* -recurse -Include *.txt
+$b.count
+
+
+#get a list of sub-folder names and store in $folders
+$folders = gci 'c:\tech' | where-object{($_.PSIsContainer)} | foreach-object{$_.Name}
+#or 
+$folders = gci 'c:\tech' -recurse | where-object{($_.PSIsContainer)} | foreach-object{$_.Name}
+$folders	#to print
+
+
+#some get-childitem tips
+#dir, ls, gci are all aliases for get-childitem
+#-recurse, -include "string" 
+#-path isn't needed, but probably good practice to include
+
+
+#del in powershell may permanently delete the file
+
+
+#folder size
+$colItems = (Get-ChildItem C:\tech\Drivers | Measure-Object -property length -sum) "{0:N2}" -f ($colItems.sum / 1MB) + " MB"
+
+
+#recover drive space (multi-line):
+$disk = Get-WmiObject Win32_logicalDisk -ComputerName <hostname> -Filter "DeviceID='C:'" 
+Select-Object Size,Freespace
+
+$size_format = ($disk.Size / 1073741824)
+$free_format = ($disk.Freespace / 1073741824)
+
+echo ""
+echo "C: Drive" "Total Size: $size_format"
+echo "Free Space: $free_format"
+$disk_percentage = ($free_format / $size_format) * 100
+echo "Percentage: $disk_percentage %"
+echo ""
+
+#or simply, for one line:
+$disk = Get-WmiObject Win32_logicalDisk -ComputerName <hostname> -Filter "DeviceID='C:'" 
+$disk = Get-WmiObject Win32_logicalDisk #for all drives available
+
+
+
+#get a list of processes for any greater than 0.0 usage
+get-process | sort-object cpu - Descending | where-object {_.cpu -gt 0.0}
+can substitute where-object for ?
+
+#to get a count
+(get-process | sort-object cpu - Descending | where-object {_.cpu -gt 0.0}).length

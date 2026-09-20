@@ -1,0 +1,40 @@
+OWASP Zed Attack Proxy (ZAP)
+
+https://www.owasp.org/index.php/ZAP
+
+-Free, open source
+-Cross Platform
+
+
+Essentials for web application testing:
+	Intercepting Proxy
+	Active and Passive Scanners 
+	Spider (crawls applications, such as hidden pages)
+	Report Generation
+	Brute FOrce
+	Fuzzing (using fuzzdb)
+	Extensibility: code.google.com/p/zap-extensions/
+	
+	
+Additional Features:
+	Auto Tagging (ie, which pages has hidden fields)
+	Port Scanner
+	Parameter Analysis
+	Smart Card Support
+	Session Comparison
+	Invoke External Apps
+	API + Headless mode (cli)
+	Dynamic SSL Certificates (for intercepting HTTPS)
+	Anti CSRF token handling
+	
+	
+A Simple Pentetration Test
+	-Configure your browser to proxy via ZAP
+	-Explore the application manually
+	-Use the Spider to find "hidden" content
+	-See what issues the Passive Scanner has found
+	-Use the Active Scanner to find vulnerabilities
+	
+
+
+	

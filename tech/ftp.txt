@@ -1,0 +1,16 @@
+vsftpd
+
+apt-get install vsftpd
+
+service vsftpd start  #start,stop,status,restart,reload
+
+#if desired, set ftp service to start automatically upon boot
+
+netstat -ant | grep 21
+
+nano /etc/vsftpd.conf
+anonymous_enable=NO
+local_enable=YES	#careful, this will send password in clear text
+service vsftpd reload
+
+

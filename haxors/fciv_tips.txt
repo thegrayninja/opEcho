@@ -1,0 +1,12 @@
+#file check integrity verifier
+#for more info:
+#https://support.microsoft.com/en-us/kb/841290
+
+
+#to run an -sha1 against all files:
+
+fciv -md5 -sha1 c:\ -r
+
+
+#need to create a diff tool, python/grep linux?
+

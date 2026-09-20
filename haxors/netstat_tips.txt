@@ -1,0 +1,5 @@
+netstat -a <-- shows all running processes
+netstat -n <-- does not try to resolve hostname
+netstat -o <-- cool option included with XP, Vista, 7. Displays PID associated with the connection.
+
+

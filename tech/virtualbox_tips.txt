@@ -1,0 +1,5 @@
+To enable Direct3D in VirtualBox:
+
+Boot into safe mode
+Device > Insert Guest CD
+Check Enable Direct 3D

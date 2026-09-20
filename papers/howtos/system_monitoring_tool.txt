@@ -1,0 +1,572 @@
+I wanted to see if it was possible to build my own monitoring tool from scratch - no plug and play solution. And I wanted to do it for free. This guide is super raw and isn't pretty to look at, but it contains the steps I took to accomplish my goal. I didn't take time to enhance security as that wasn't the primary goal in this project.
+
+Challenge: Create a Dashboard that gives me live asset statistics with a maximum of 10 seconds delay. And create it in less than 24 hours.
+
+High Level Overview:
+
+- install mysql
+- install django REST API
+- install grafana
+
+- create resource collector script
+  - include api post
+- create connector for grafana <> mysql
+- create query dashboard in Grafana
+
+
+
+Let's Begin:
+
+
+requirements:
+  1 host system running grafana and django
+  1 host to capture host statistics to upload to django host
+
+optional:
+  have multiple vms running the statistics script to help pad your graph
+
+assumptions:
+  Ubuntu 22.04 was the OS of choice for all hosts in this project. Your experience following this guide will differ if you are using a different OS.
+  All systems require network connection to each other. If running in VMs, be sure to set your network to Bridge Adapter mode
+  This guide was not built for real-world enterprise environments. Be sure to add security to the workflow.
+
+
+Installing Django REST API Server
+The Django REST API portion of this how-to was taken from Rashad Russell over at Medium / Beyond Light Creations. I wouldn't have been able to make it without Rashad's write-up, so definitely a big thank you!
+The Django version here is straight to the point and includes my modifications to fit the needs of my project.
+
+https://medium.com/beyond-light-creations/build-a-rest-api-with-django-rest-framework-and-mysql-ddff0c1126ae
+
+- install python3
+    - apt install python3
+- install python pip
+    - apt install python3-pip
+
+
+mkdir ./todoapi && cd $_
+nano requirements.txt
+paste the following in the requirements file:
+
+# Django Web Framework
+django>=3.1.3
+
+# Django Cors Headers - Used to enable CORS headers in API responses, and allow requests to be made to your API server from other origins.
+django-cors-headers>=3.5.0
+
+# Django Rest Framework - Used to design API logic
+djangorestframework>=3.12.2
+
+# MySQL Client - Used as an interface to connect Django application to the MySQL server.
+mysqlclient>=2.0.1
+
+
+
+save, then run:
+pip install -r requirements.txt
+
+may also need to run this line:
+sudo apt-get install python3-dev default-libmysqlclient-dev build-essential
+
+#MYSQL Setup
+create a todos database and grant root access (change user for security)
+connect to mysql server
+
+mysql> CREATE DATABASE IF NOT EXISTS todos;
+mysql> show databases;
+
+
+django-admin startproject todoapi
+cd todoapi
+nano todoapi/settings.py
+
+#######
+####### Add the custom attributes listed
+#######
+
+
+
+from pathlib import Path
+
+
+DEBUG = True
+
+ALLOWED_HOSTS = ['*']
+
+
+# Application definition
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'todolist.apps.TodolistConfig',
+    'rest_framework',
+]
+
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+ROOT_URLCONF = 'todoapi.urls'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+WSGI_APPLICATION = 'todoapi.wsgi.application'
+
+
+# Database
+# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+
+DATABASES = {
+  'default': {
+    # MySQL engine. Powered by the mysqlclient module.
+    'ENGINE': 'django.db.backends.mysql',
+    'NAME': 'todos',
+    'USER': 'root',
+    'PASSWORD': '',
+    'HOST': '127.0.0.1',
+    'PORT': '3306',
+  }
+}
+
+STATIC_URL = 'static/'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+########
+#########  END OF FILE
+#########
+
+
+
+python3 manage.py startapp todolist
+
+python3 manage.py showmigrations
+python3 manage.py migrate
+
+- Update database models
+nano todolist/models.py
+
+
+#######
+####### Start of File
+#######
+
+from django.db import models
+
+# Create your models here.
+class Todo(models.Model):
+  id = models.AutoField(
+    primary_key=True
+  )
+
+  myDate = models.DateTimeField(
+    max_length=100,
+    null=False,
+    blank=False
+  )
+
+  hostname = models.TextField(
+    max_length=100,
+    null=False,
+    blank=False
+  )
+
+  memoryUsage = models.TextField(
+    max_length=100,
+    null=False,
+    blank=False
+  )
+
+  cpuUsage = models.TextField(
+    max_length=100,
+    null=False,
+    blank=False
+  )
+
+  rootdriveUsage = models.TextField(
+    max_length=100,
+    null=False,
+    blank=False
+  )
+
+  creation_date = models.DateTimeField(
+    auto_now_add=True,
+    null=False,
+    blank=False
+  )
+
+  last_updated = models.DateTimeField(
+    auto_now=True,
+    null=False,
+    blank=False
+  )
+
+  class Meta:
+    db_table = 'Todos'
+
+
+########
+#########  END OF FILE
+#########
+
+
+python3 manage.py makemigrations todolist
+python3 manage.py migrate
+
+
+##mysql again
+connect to mysql server then run the following commands to verify django <> mysql connection is solid:
+mysql> use Todos;
+mysql> show tables;
+
+
+nano ./todolist/serializers.py
+
+
+#######
+####### Start of File
+#######
+
+
+from .models import Todo
+
+
+class TodoSerializer(serializers.ModelSerializer):
+  myDate = serializers.CharField(max_length=100, required=True),
+  hostname = serializers.CharField(max_length=100, required=True),
+  memoryUsage = serializers.CharField(max_length=100, required=True),
+  cpuUsage = serializers.CharField(max_length=100, required=True),
+  rootdriveUsage = serializers.CharField(max_length=100, required=True)
+
+  def create(self, validated_data):
+    # Once the request data has been validated, we can create a todo item instance in the database
+    return Todo.objects.create(
+      myDate=validated_data.get('myDate'),
+      hostname=validated_data.get('hostname'),
+      memoryUsage=validated_data.get('memoryUsage'),
+      cpuUsage=validated_data.get('cpuUsage'),
+      rootdriveUsage=validated_data.get('rootdriveUsage')
+
+    )
+
+  def update(self, instance, validated_data):
+     # Once the request data has been validated, we can update the todo item instance in the database
+    instance.myDate = validated_data.get('myDate', instance.myDate),
+    instance.hostname = validated_data.get('hostname', instance.hostname),
+    instance.memoryUsage = validated_data.get('memoryUsage', instance.memoryUsage),
+    instance.cpuUsage = validated_data.get('cpuUsage', instance.cpuUsage),
+    instance.rootdriveUsage = validated_data.get('rootdriveUsage', instance.rootdriveUsage)
+    instance.save()
+    return instance
+
+  class Meta:
+    model = Todo
+    fields = (
+      'myDate',
+      'id',
+      'hostname',
+      'memoryUsage',
+      'cpuUsage',
+      'rootdriveUsage'
+    )
+
+
+########
+#########  END OF FILE
+#########
+
+
+
+nano ./todolist/views.py
+
+
+
+#######
+####### Start of File
+#######
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.mixins import UpdateModelMixin, DestroyModelMixin
+
+from .models import Todo
+from .serializers import TodoSerializer
+
+
+class TodoListView(
+  APIView, # Basic View class provided by the Django Rest Framework
+  UpdateModelMixin, # Mixin that allows the basic APIView to handle PUT HTTP requests
+  DestroyModelMixin, # Mixin that allows the basic APIView to handle DELETE HTTP requests
+):
+
+  def get(self, request, id=None):
+    if id:
+      # If an id is provided in the GET request, retrieve the Todo item by that id
+      try:
+        # Check if the todo item the user wants to update exists
+        queryset = Todo.objects.get(id=id)
+      except Todo.DoesNotExist:
+        # If the todo item does not exist, return an error response
+        return Response({'errors': 'This todo item does not exist.'}, status=400)
+
+      # Serialize todo item from Django queryset object to JSON formatted data
+      read_serializer = TodoSerializer(queryset)
+
+    else:
+      # Get all todo items from the database using Django's model ORM
+      queryset = Todo.objects.all()
+
+      # Serialize list of todos item from Django queryset object to JSON formatted data
+      read_serializer = TodoSerializer(queryset, many=True)
+
+    # Return a HTTP response object with the list of todo items as JSON
+    return Response(read_serializer.data)
+
+
+  def post(self, request):
+    # Pass JSON data from user POST request to serializer for validation
+    create_serializer = TodoSerializer(data=request.data)
+
+    # Check if user POST data passes validation checks from serializer
+    if create_serializer.is_valid():
+
+      # If user data is valid, create a new todo item record in the database
+      todo_item_object = create_serializer.save()
+
+      # Serialize the new todo item from a Python object to JSON format
+      read_serializer = TodoSerializer(todo_item_object)
+
+      # Return a HTTP response with the newly created todo item data
+      return Response(read_serializer.data, status=201)
+
+    # If the users POST data is not valid, return a 400 response with an error message
+    return Response(create_serializer.errors, status=400)
+
+
+  def put(self, request, id=None):
+    try:
+      # Check if the todo item the user wants to update exists
+      todo_item = Todo.objects.get(id=id)
+    except Todo.DoesNotExist:
+      # If the todo item does not exist, return an error response
+      return Response({'errors': 'This todo item does not exist.'}, status=400)
+
+    # If the todo item does exists, use the serializer to validate the updated data
+    update_serializer = TodoSerializer(todo_item, data=request.data)
+
+    # If the data to update the todo item is valid, proceed to saving data to the database
+    if update_serializer.is_valid():
+
+      # Data was valid, update the todo item in the database
+      todo_item_object = update_serializer.save()
+
+      # Serialize the todo item from Python object to JSON format
+      read_serializer = TodoSerializer(todo_item_object)
+
+      # Return a HTTP response with the newly updated todo item
+      return Response(read_serializer.data, status=200)
+
+    # If the update data is not valid, return an error response
+    return Response(update_serializer.errors, status=400)
+
+
+  def delete(self, request, id=None):
+    try:
+      # Check if the todo item the user wants to update exists
+      todo_item = Todo.objects.get(id=id)
+    except Todo.DoesNotExist:
+      # If the todo item does not exist, return an error response
+      return Response({'errors': 'This todo item does not exist.'}, status=400)
+
+    # Delete the chosen todo item from the database
+    todo_item.delete()
+
+    # Return a HTTP response notifying that the todo item was successfully deleted
+    return Response(status=204)
+
+
+
+########
+#########  END OF FILE
+#########
+
+
+
+nano ./todolist/urls.py
+
+#######
+####### Start of File
+#######
+
+
+
+from django.urls import path
+
+from . import views
+
+urlpatterns = [
+  path('todos/', views.TodoListView.as_view()),
+  path('todos/<int:id>/', views.TodoListView.as_view()),
+]
+
+
+
+########
+#########  END OF FILE
+#########
+
+
+nano ./todoapi/urls.py
+
+
+#######
+####### Start of File
+#######
+
+"""
+URL configuration for todoapi project.
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/5.0/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.contrib import admin
+from django.urls import path,include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('todolist.urls'))
+]
+
+
+########
+#########  END OF FILE
+#########
+
+
+Now to run the API REST Server:
+python3 manage.py runserver 0.0.0.0:8000
+
+
+To monitor Resource Capacity on a linux server, use the following get_systeminfo.sh script. Adjust as necessary.
+Current script uploads a maximum of 1000 stats. Obviously this is for testing. Remove this limit for production.
+Ideally also set this up to run as a cronjob or as a service.
+
+
+#######
+####### Start of File
+#######
+
+#!/bin/sh
+
+x=0
+while [ $x -lt 1000 ]; do
+  cpuIdle=$(vmstat 1 2|tail -1|awk '{print $15}')
+  cpuUsage="$((100-cpuIdle))"
+  memoryUsage=$(free | grep Mem | awk '{print ($3+$5+$6)/$2 * 100.0}')
+  rootdriveUsage=$(df -h | grep /$ | awk '{print $5}')
+  myHostname=$(hostname)
+  myDate=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+  echo $myDate","$(hostname),$memoryUsage"%"","$cpuUsage"%"","$rootdriveUsage
+  x=$((x+1))
+  curl -H 'Content-Type: application/json' -d '{"myDate":"'"$myDate"'","hostname":"'"$myHostname"'","cpuUsage":"'"$cpuUsage"'","memoryUsage":"'"$memoryUsage"'","rootdriveUsage":"'"$rootdriveUsage"'"}' -X POST http://192.168.7.114:8000/todos/
+  sleep 5
+done
+
+
+
+########
+#########  END OF FILE
+#########
+
+
+
+### Install Grafana:
+Can follow directions here: https://grafana.com/docs/grafana/latest/setup-grafana/installation/debian/
+
+sudo apt-get install -y apt-transport-https software-properties-common wget
+sudo mkdir -p /etc/apt/keyrings/
+wget -q -O - https://apt.grafana.com/gpg.key | gpg --dearmor | sudo tee /etc/apt/keyrings/grafana.gpg > /dev/null
+echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+sudo apt-get update
+sudo apt-get install grafana
+sudo systemctl daemon-reload
+sudo systemctl start grafana-server
+sudo systemctl status grafana-server
+
+# to have grafana start at boot:
+sudo systemctl enable grafana-server.service
+
+# access the grafana dashboard:
+http://<ipaddress>:3000/
+
+username and password defaults: admin
+
+Now it's time to add the MySQL as a Data Source
+
+Menu > Connections > Data Sources
+Add a New Data Source
+Search for and select MySQL
+
+Data:
+Connection
+Host URL <ipaddress>:3306  or localhost:3306 #if running on same server
+Database name: todos
+
+Authentication
+username: root   #update as necessary
+password: <mysqlpassword for user>
+
+
+Everything else leave as default
+
+Click Save and Test to verify and save connection
+
+
+Example dashboard:
+SELECT CAST(cpuUsage AS float) AS 'cpu', hostname, STR_TO_DATE(myDate,'%Y-%m-%d %H:%i:%s') AS 'time' FROM todos.Todos
+SELECT CAST(memoryUsage AS float) AS 'memory', hostname, STR_TO_DATE(myDate,'%Y-%m-%d %H:%i:%s') AS 'time' FROM todos.Todos
+SELECT CAST(rootdriveUsage AS float) AS 'drive', hostname, STR_TO_DATE(myDate,'%Y-%m-%d %H:%i:%s') AS 'time' FROM todos.Todos
+
+
+
+RAM per host:
+SELECT CAST(memoryUsage AS float) AS 'memory', hostname, STR_TO_DATE(myDate,'%Y-%m-%d %H:%i:%s') AS 'time' FROM todos.Todos where hostname = 'utilbox01'
+
+
+CPU:
+SELECT CAST(cpuUsage AS float) AS 'utilbox01', hostname, STR_TO_DATE(myDate,'%Y-%m-%d %H:%i:%s') AS 'time' FROM todos.Todos where hostname = 'utilbox01'

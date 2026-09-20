@@ -1,0 +1,11 @@
+recover non-tls passwords:
+
+ip.dst eq 10.9.20.110
+look for http protocol
+POST
+
+or http.request.method eq "POST")
+
+Filter only client to server traffic
+
+

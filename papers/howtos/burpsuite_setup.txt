@@ -1,0 +1,47 @@
+cd ./Downloads
+download installer: https://portswigger.net/burp/releases/professional-community-2023-12-1-1?requestededition=community&requestedplatform=
+
+chmod +x ./burp*.sh
+./burp*.sh
+run through gui installer
+
+when complete, open terminal and launch via: BurpSuiteCommunity
+  - or find it in the menu
+  - or in the installation directory (default: /opt/BurpSuiteCommunity)
+
+Note: Free Community Edition does not allow you to load or save projects
+
+Most important thing to cover is configuring Burp to be your browser's proxy. This example will show how to do this on a Linux system Running Firefox.
+
+Click the Proxy Tab, then click Proxy settings (sub tab)
+In the new Settings window, click "Import / export CA certificate"
+Select Export > Certificate and private key in PKCS#12 keystore
+Save file as burpcert.ca to ~/Documents
+Enter password (required). This will be used during the import process.
+
+Load up Firefox
+Click the App menu button > Settings
+Click Privacy & Security (left menu)
+Scroll down to Security > Certificates, then click "View Certificates..."
+Click the "Your Certificates" tab, then click Import
+Enter password from the export process.
+Click Ok/save/whatever to close all the windows.
+
+Back to the Proxy > Settings window in Burp, verify the Proxy listener is setup and running. By Default, it will be listening on port 8080
+Back to Firefox, in Settings, click General (left menu)
+Scroll to the bottom and you will find Network Settings. Click the Settings button
+Select Manual proxy configuration.
+For HTTP Proxy, enter: 127.0.0.1
+For Port, enter: 8080     #note: update as necessary
+Check the box "Also use this proxy for HTTPS"
+Click OK to save.
+
+Go back to Burp. Close the Settings Window
+Click the "Intercent is off" button to turn it on.
+
+Restart Firefox and test.
+A warning will likely pop-up about untrusted cert. This is because Portswigger is now acting as a middle-man. You may approve after review
+
+When done testing, you'll end up closing burp. Your Proxy will fail now, and firefox will seem broken. Go back into Networking settings and disable the proxy.
+
+...or you can just use the buit-in browser and save all of that hassle.

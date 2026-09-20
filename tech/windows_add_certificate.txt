@@ -1,0 +1,4 @@
+add local certificate
+
+mmc.exe > add certificate snapin > browse to type (folder)
+import > import certificate > enter password (if necessary)
